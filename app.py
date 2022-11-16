@@ -28,9 +28,9 @@ def get_all_nba_teams():
 def get_roster(team_id: int):
     players_ = session \
         .query(teams) \
-        .filter_by(team_id=team_id) \
-        .all()
-
+        # .filter_by(team_id=team_id) \
+        # .all()
+    print(players_)
     if len(players_) != 0:
         data = [dict(zip(teams.columns.keys(), player)) for player in players_]
         return Response(json.dumps({"players": data}), status=200, mimetype="application/json")
