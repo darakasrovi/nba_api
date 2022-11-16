@@ -1,31 +1,31 @@
-,Division,Team,Team ID
-0,Atlantic,Boston Celtics,1610612738
-1,Atlantic,Brooklyn Nets,1610612751
-2,Atlantic,New York Knicks,1610612752
-3,Atlantic,Philadelphia 76ers,1610612755
-4,Atlantic,Toronto Raptors,1610612761
-5,Central,Chicago Bulls,1610612741
-6,Central,Cleveland Cavaliers,1610612739
-7,Central,Detroit Pistons,1610612765
-8,Central,Indiana Pacers,1610612754
-9,Central,Milwaukee Bucks,1610612749
-10,Southeast,Atlanta Hawks,1610612737
-11,Southeast,Charlotte Hornets,1610612766
-12,Southeast,Miami Heat,1610612748
-13,Southeast,Orlando Magic,1610612753
-14,Southeast,Washington Wizards,1610612764
-15,Northwest,Denver Nuggets,1610612743
-16,Northwest,Minnesota Timberwolves,1610612750
-17,Northwest,Oklahoma City Thunder,1610612760
-18,Northwest,Portland Trail Blazers,1610612757
-19,Northwest,Utah Jazz,1610612762
-20,Pacific,Golden State Warriors,1610612744
-21,Pacific,LA Clippers,1610612746
-22,Pacific,Los Angeles Lakers,1610612747
-23,Pacific,Phoenix Suns,1610612756
-24,Pacific,Sacramento Kings,1610612758
-25,Southwest,Dallas Mavericks,1610612742
-26,Southwest,Houston Rockets,1610612745
-27,Southwest,Memphis Grizzlies,1610612763
-28,Southwest,New Orleans Pelicans,1610612740
-29,Southwest,San Antonio Spurs,1610612759
+division,team,team_id
+Atlantic,Boston Celtics,1610612738
+Atlantic,Brooklyn Nets,1610612751
+Atlantic,New York Knicks,1610612752
+Atlantic,Philadelphia 76ers,1610612755
+Atlantic,Toronto Raptors,1610612761
+Central,Chicago Bulls,1610612741
+Central,Cleveland Cavaliers,1610612739
+Central,Detroit Pistons,1610612765
+Central,Indiana Pacers,1610612754
+Central,Milwaukee Bucks,1610612749
+Southeast,Atlanta Hawks,1610612737
+Southeast,Charlotte Hornets,1610612766
+Southeast,Miami Heat,1610612748
+Southeast,Orlando Magic,1610612753
+Southeast,Washington Wizards,1610612764
+Northwest,Denver Nuggets,1610612743
+Northwest,Minnesota Timberwolves,1610612750
+Northwest,Oklahoma City Thunder,1610612760
+Northwest,Portland Trail Blazers,1610612757
+Northwest,Utah Jazz,1610612762
+Pacific,Golden State Warriors,1610612744
+Pacific,LA Clippers,1610612746
+Pacific,Los Angeles Lakers,1610612747
+Pacific,Phoenix Suns,1610612756
+Pacific,Sacramento Kings,1610612758
+Southwest,Dallas Mavericks,1610612742
+Southwest,Houston Rockets,1610612745
+Southwest,Memphis Grizzlies,1610612763
+Southwest,New Orleans Pelicans,1610612740
+Southwest,San Antonio Spurs,1610612759

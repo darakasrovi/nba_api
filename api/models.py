@@ -1,9 +1,10 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, MetaData, Numeric, DateTime
 from sqlalchemy_utils import database_exists, create_database
 from decouple import config
 import pandas as pd
-import os
 
 meta = MetaData()
 url = f"mysql+pymysql://{config('USERNAME')}:{config('PASSWORD')}@{config('HOST')}/{config('DB_NAME')}"
@@ -17,10 +18,11 @@ def create_nba_db() -> None:
 
 teams = Table(
     "Teams", meta,
-    Column("team_id", Integer, primary_key=True),
-    Column("team", String(16)),
     Column("division", String(16)),
+    Column("team_id", Integer, primary_key=True),
+    Column("team", String(16))
 )
+
 
 players = Table(
     "Players", meta,
@@ -38,18 +40,19 @@ players = Table(
     Column("school", String(16))
 )
 
+
 quick_stats = Table(
     "QuickStats", meta,
-    Column("team_id", Integer, primary_key=True),
+    Column("player_id", Integer, primary_key=True),
     Column("ppg", Numeric),
     Column("rpg", Numeric),
     Column("apg", Numeric),
     Column("pie", Numeric)
 )
 
+
 career_stats = Table(
     "CareerStats", meta,
-    Column("id", Integer, primary_key=True),
     Column("season", String(16)),
     Column("team", String(16)),
     Column("age", Integer),
@@ -77,16 +80,19 @@ career_stats = Table(
     Column("player_id", Integer)
 )
 
+
 if __name__ == "__main__":
     create_nba_db()
     print(database_exists(engine.url))
     meta.create_all(engine)
 
-    teams = pd.read_csv(os.path.join("..", "data", "teams.csv"), index_col=[0])
-    players = pd.read_csv(os.path.join("..", "data", "players.csv"), index_col=[0])
-    player_quick_stats = pd.read_csv(os.path.join("..", "data", "player_quick_stats.csv"), index_col=[0])
-    player_career_stats = pd.read_csv(os.path.join("..", "data", "player_info.csv"), index_col=[0])
+    # Read in the dataframe
+    teams = pd.read_csv(os.path.join("..", "data", "teams.csv"))
+    players = pd.read_csv(os.path.join("..", "data", "players.csv"))
+    player_quick_stats = pd.read_csv(os.path.join("..", "data", "player_quick_stats.csv"))
+    player_career_stats = pd.read_csv(os.path.join("..", "data", "player_info.csv"))
 
+    # Write dataframes to MySQL dbs
     teams.to_sql("Teams", engine, index=False, if_exists="replace")
     players.to_sql("Players", engine, index=False, if_exists="replace")
     player_quick_stats.to_sql("QuickStats", engine, index=False, if_exists="replace")
