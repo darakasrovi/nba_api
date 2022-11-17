@@ -27,12 +27,12 @@ def get_all_nba_teams():
 @app.route("/roster/<int:team_id>")
 def get_roster(team_id: int):
     players_ = session \
-        .query(teams) \
-        # .filter_by(team_id=team_id) \
-        # .all()
-    print(players_)
-    if len(players_) != 0:
-        data = [dict(zip(teams.columns.keys(), player)) for player in players_]
+        .query(players) \
+        .filter_by(team_id=team_id) \
+        .all()
+
+    if players_:
+        data = [dict(zip(players.columns.keys(), player)) for player in players_]
         return Response(json.dumps({"players": data}), status=200, mimetype="application/json")
     return Response("Record not found", status=400)
 
@@ -44,8 +44,9 @@ def get_player_info(player_id: int):
         .filter(players.c.player_id == player_id and players.c.player_id == quick_stats.c.player_id) \
         .first()
 
+    table_columns = list(players.columns.keys()) + list(quick_stats.columns.keys())
     if player:
-        data = dict(zip(list(players.columns.keys()) + list(quick_stats.columns.keys()), player))
+        data = dict(zip(table_columns, player))
         return Response(json.dumps({"player": data}), status=200, mimetype="application/json")
     return Response("Record not found", status=400)
 
@@ -57,9 +58,9 @@ def get_player_career_stats(player_id: int):
         .filter(players.c.player_id == player_id and players.c.player_id == career_stats.c.player_id) \
         .all()
 
+    table_columns = list(players.columns.keys()) + list(career_stats.columns.keys())
     if players_:
-        data = [dict(zip(list(players.columns.keys()) + list(career_stats.columns.keys()), player)) for player in
-                players_]
+        data = [dict(zip(table_columns, player)) for player in players_]
         return Response(json.dumps({"player": data}), status=200, mimetype="application/json")
     return Response("Record not found", status=400)
 
