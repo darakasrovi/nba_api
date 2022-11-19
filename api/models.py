@@ -1,99 +1,67 @@
-import os
-
-from sqlalchemy import create_engine
-from sqlalchemy import Table, Column, Integer, String, MetaData, Numeric, DateTime
-from sqlalchemy_utils import database_exists, create_database
-from decouple import config
-import pandas as pd
-
-meta = MetaData()
-url = f"mysql+pymysql://{config('USERNAME')}:{config('PASSWORD')}@{config('HOST')}/{config('DB_NAME')}"
-engine = create_engine(url)
+from sqlalchemy import Column, Integer, String, Numeric, DateTime
+from .database import Base
 
 
-def create_nba_db() -> None:
-    if not database_exists(engine.url):
-        create_database(engine.url)
+class Team(Base):
+    __tablename__ = "teams"
+    team_id = Column("team_id", Integer, primary_key=True, nullable=False)
+    division = Column("division", String)
+    team = Column("team", String)
 
 
-teams = Table(
-    "Teams", meta,
-    Column("division", String(16)),
-    Column("team_id", Integer, primary_key=True),
-    Column("team", String(16))
-)
+class Player(Base):
+    __tablename__ = "players"
+
+    player_id = Column("player_id", Integer, primary_key=True)
+    team_id = Column("team_id", Integer)
+    season = Column("season", Integer)
+    player = Column("player", String)
+    num = Column("num", Integer)
+    position = Column("position", String)
+    height = Column("height", Numeric)
+    weight = Column("weight", Numeric)
+    birth_date = Column("birth_date", DateTime)
+    age = Column("age", Integer)
+    exp = Column("exp", String)
+    school = Column("school", String)
 
 
-players = Table(
-    "Players", meta,
-    Column("player_id", Integer, primary_key=True),
-    Column("team_id", Integer),
-    Column("season", Integer),
-    Column("player", String(16)),
-    Column("num", Integer),
-    Column("position", String(16)),
-    Column("height", Numeric),
-    Column("weight", Numeric),
-    Column("birth_date", DateTime),
-    Column("age", Integer),
-    Column("exp", String(16)),
-    Column("school", String(16))
-)
+class QuickStat(Base):
+    __tablename__ = "quickstats"
+
+    player_id = Column("player_id", Integer, primary_key=True)
+    ppg = Column("ppg", Numeric)
+    rpg = Column("rpg", Numeric)
+    apg = Column("apg", Numeric)
+    pie = Column("pie", Numeric)
 
 
-quick_stats = Table(
-    "QuickStats", meta,
-    Column("player_id", Integer, primary_key=True),
-    Column("ppg", Numeric),
-    Column("rpg", Numeric),
-    Column("apg", Numeric),
-    Column("pie", Numeric)
-)
+class CareerStat(Base):
+    __tablename__ = "careerstats"
 
-
-career_stats = Table(
-    "CareerStats", meta,
-    Column("season", String(16)),
-    Column("team", String(16)),
-    Column("age", Integer),
-    Column("gp", Integer),
-    Column("gs", Integer),
-    Column("min", Integer),
-    Column("pts", Integer),
-    Column("fgm", Integer),
-    Column("fga", Integer),
-    Column("fg%", Integer),
-    Column("3pm", Integer),
-    Column("3pa", Integer),
-    Column("3p%", Numeric),
-    Column("ftm", Integer),
-    Column("fta", Integer),
-    Column("ft%", Numeric),
-    Column("oreb", Integer),
-    Column("dreb", Integer),
-    Column("reb", Integer),
-    Column("ast", Integer),
-    Column("stl", Integer),
-    Column("blk", Integer),
-    Column("tov", Integer),
-    Column("pf", Integer),
-    Column("player_id", Integer)
-)
-
-
-if __name__ == "__main__":
-    create_nba_db()
-    print(database_exists(engine.url))
-    meta.create_all(engine)
-
-    # Read in the dataframe
-    teams = pd.read_csv(os.path.join("..", "data", "teams.csv"))
-    players = pd.read_csv(os.path.join("..", "data", "players.csv"))
-    player_quick_stats = pd.read_csv(os.path.join("..", "data", "player_quick_stats.csv"))
-    player_career_stats = pd.read_csv(os.path.join("..", "data", "player_info.csv"))
-
-    # Write dataframes to MySQL dbs
-    teams.to_sql("Teams", engine, index=False, if_exists="replace")
-    players.to_sql("Players", engine, index=False, if_exists="replace")
-    player_quick_stats.to_sql("QuickStats", engine, index=False, if_exists="replace")
-    player_career_stats.to_sql("CareerStats", engine, index=False, if_exists="replace")
+    id = Column("id", Integer, autoincrement=True, primary_key=True, nullable=False)
+    season = Column("season", String)
+    team = Column("team", String)
+    age = Column("age", Integer)
+    gp = Column("gp", Integer)
+    gs = Column("gs", Integer)
+    min = Column("min", Integer)
+    pts = Column("pts", Integer)
+    fgm = Column("fgm", Integer)
+    fga = Column("fga", Integer)
+    fg_percentage = Column("fg%", Integer)
+    three_pm = Column("3pm", Integer)
+    three_pa = Column("3pa", Integer)
+    three_p_percentage = Column("3p%", Numeric)
+    ftm = Column("ftm", Integer)
+    fta = Column("fta", Integer)
+    ft_percentage = Column("ft%", Numeric)
+    oreb = Column("oreb", Integer)
+    dreb = Column("dreb", Integer)
+    reb = Column("reb", Integer)
+    ast = Column("ast", Integer)
+    stl = Column("stl", Integer)
+    blk = Column("blk", Integer)
+    tov = Column("tov", Integer)
+    pf = Column("pf", Integer)
+    player_id = Column("player_id", Integer)
