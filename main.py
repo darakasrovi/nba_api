@@ -34,13 +34,13 @@ async def root():
 
 
 @app.get("/teams")
-def get_all_nba_teams(db: Session = Depends(get_db)):
+async def get_all_nba_teams(db: Session = Depends(get_db)):
     teams = db.query(models.Team).all()
     return teams
 
 
 @app.get("/roster/{team_id}")
-def get_roster(team_id: int, db: Session = Depends(get_db)):
+async def get_roster(team_id: int, db: Session = Depends(get_db)):
     roster = db \
         .query(models.Player) \
         .filter(models.Player.team_id == team_id) \
@@ -55,10 +55,10 @@ def get_roster(team_id: int, db: Session = Depends(get_db)):
 
 
 @app.get("/player/{player_id}")
-def get_player_info(player_id: int, db: Session = Depends(get_db)):
+async def get_player_info(player_id: int, db: Session = Depends(get_db)):
     player = db \
         .query(models.Player) \
-        .filter(models.Player.player_id == player_id)\
+        .filter(models.Player.player_id == player_id) \
         .first()
 
     if not player:
@@ -71,10 +71,10 @@ def get_player_info(player_id: int, db: Session = Depends(get_db)):
 
 
 @app.get("/player/quickstats/{player_id}")
-def get_player_info(player_id: int, db: Session = Depends(get_db)):
+async def get_player_info(player_id: int, db: Session = Depends(get_db)):
     player = db \
         .query(models.QuickStat) \
-        .filter(models.QuickStat.player_id == player_id)\
+        .filter(models.QuickStat.player_id == player_id) \
         .first()
 
     if not player:
@@ -85,11 +85,12 @@ def get_player_info(player_id: int, db: Session = Depends(get_db)):
 
     return player
 
+
 @app.get("/player/careerstats/{player_id}")
-def get_player_career_stats(player_id: int, db: Session = Depends(get_db)):
+async def get_player_career_stats(player_id: int, db: Session = Depends(get_db)):
     players = db \
         .query(models.CareerStat) \
-        .join(models.Player, models.Player.player_id == models.CareerStat.player_id)\
+        .join(models.Player, models.Player.player_id == models.CareerStat.player_id) \
         .filter(models.Player.player_id == player_id) \
         .all()
 
