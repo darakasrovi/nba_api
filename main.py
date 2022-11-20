@@ -29,18 +29,18 @@ player_career_stats.to_sql("careerstats", engine, if_exists="replace")
 
 
 @app.get("/")
-async def root():
+def root():
     return {"message": "welcome to the nba api! for dsci 511 - data acquisition and preprocessing"}
 
 
 @app.get("/teams")
-async def get_all_nba_teams(db: Session = Depends(get_db)):
+def get_all_nba_teams(db: Session = Depends(get_db)):
     teams = db.query(models.Team).all()
     return teams
 
 
 @app.get("/roster/{team_id}")
-async def get_roster(team_id: int, db: Session = Depends(get_db)):
+def get_roster(team_id: int, db: Session = Depends(get_db)):
     roster = db \
         .query(models.Player) \
         .filter(models.Player.team_id == team_id) \
@@ -55,7 +55,7 @@ async def get_roster(team_id: int, db: Session = Depends(get_db)):
 
 
 @app.get("/player/{player_id}")
-async def get_player_info(player_id: int, db: Session = Depends(get_db)):
+def get_player_info(player_id: int, db: Session = Depends(get_db)):
     player = db \
         .query(models.Player) \
         .filter(models.Player.player_id == player_id) \
@@ -71,7 +71,7 @@ async def get_player_info(player_id: int, db: Session = Depends(get_db)):
 
 
 @app.get("/player/quickstats/{player_id}")
-async def get_player_quick_stats(player_id: int, db: Session = Depends(get_db)):
+def get_player_quick_stats(player_id: int, db: Session = Depends(get_db)):
     player = db \
         .query(models.QuickStat) \
         .filter(models.QuickStat.player_id == player_id) \
@@ -87,7 +87,7 @@ async def get_player_quick_stats(player_id: int, db: Session = Depends(get_db)):
 
 
 @app.get("/player/careerstats/{player_id}")
-async def get_player_career_stats(player_id: int, db: Session = Depends(get_db)):
+def get_player_career_stats(player_id: int, db: Session = Depends(get_db)):
     players = db \
         .query(models.CareerStat) \
         .join(models.Player, models.Player.player_id == models.CareerStat.player_id) \
