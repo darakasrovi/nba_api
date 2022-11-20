@@ -5,7 +5,7 @@ from sqlalchemy.orm.session import Session
 from fastapi.params import Depends
 import pandas as pd
 
-from api.database import get_db, create_nba_db, Base, engine
+from api.database import get_db, create_nba_db, engine
 from api import models
 
 app = FastAPI()
@@ -71,7 +71,7 @@ async def get_player_info(player_id: int, db: Session = Depends(get_db)):
 
 
 @app.get("/player/quickstats/{player_id}")
-async def get_player_info(player_id: int, db: Session = Depends(get_db)):
+async def get_player_quick_stats(player_id: int, db: Session = Depends(get_db)):
     player = db \
         .query(models.QuickStat) \
         .filter(models.QuickStat.player_id == player_id) \
