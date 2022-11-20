@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
 from decouple import config
 
-SQLALCHEMY_DATABASE_URL = "postgres://tqpmkcmcriksac:10a8ebb5db620acbacda22cc96582fd74d147eef705cbf641ee155847085f9df@ec2-3-209-39-2.compute-1.amazonaws.com:5432/d42tgjq61pdcvl"
+SQLALCHEMY_DATABASE_URL = "postgresql://tqpmkcmcriksac:10a8ebb5db620acbacda22cc96582fd74d147eef705cbf641ee155847085f9df@ec2-3-209-39-2.compute-1.amazonaws.com:5432/d42tgjq61pdcvl"
     # f"postgresql://{config('USERNAME')}:{config('PASSWORD')}@{config('HOST')}:{config('PORT')}/{config('DB_NAME')}"
 
 
