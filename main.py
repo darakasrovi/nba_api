@@ -20,13 +20,13 @@ player_quick_stats = pd.read_csv(os.path.join("data", "player_quick_stats.csv"))
 player_career_stats = pd.read_csv(os.path.join("data", "player_info.csv"))
 player_career_stats.reset_index(inplace=True)
 player_career_stats.rename(columns={"index": "id"}, inplace=True)
-
-# Write dataframes to MySQL dbs
-teams.to_sql("teams", engine, index=False, if_exists="replace")
-players.to_sql("players", engine, index=False, if_exists="replace")
-player_quick_stats.to_sql("quickstats", engine, index=False, if_exists="replace")
-player_career_stats.to_sql("careerstats", engine, if_exists="replace")
-
+#
+# # Write dataframes to MySQL dbs
+# teams.to_sql("teams", engine, index=False, if_exists="replace")
+# players.to_sql("players", engine, index=False, if_exists="replace")
+# player_quick_stats.to_sql("quickstats", engine, index=False, if_exists="replace")
+# player_career_stats.to_sql("careerstats", engine, if_exists="replace")
+#
 
 @app.get("/")
 def root():

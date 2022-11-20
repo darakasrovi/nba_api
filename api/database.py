@@ -7,6 +7,7 @@ from decouple import config
 SQLALCHEMY_DATABASE_URL = \
     f"postgresql://{config('USERNAME')}:{config('PASSWORD')}@{config('HOST')}:{config('PORT')}/{config('DB_NAME')}"
 
+
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
