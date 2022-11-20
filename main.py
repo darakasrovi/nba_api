@@ -11,7 +11,7 @@ from api import models
 app = FastAPI()
 
 # Create NBA database
-create_nba_db()
+# create_nba_db()
 
 # Read in the dataframe
 teams = pd.read_csv(os.path.join("data", "teams.csv"))
