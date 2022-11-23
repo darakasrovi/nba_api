@@ -6,6 +6,17 @@
 
 For this project we want to scrape statistics on all the NBA teams and players from the NBA Advanced Stats webpage
 
+
+## Table of Contents
+1. [Installation](#Installation) 
+2. [Getting the NBA Teams](#Getting-the-NBA-Teams) 
+3. [Getting the Team Rosters](#Getting-the-Team-Rosters)
+4. [Getting All NBA Players](#Getting-All-NBA-Players)
+5. [Pre-Processing The Team Roster](#Pre-Processing-The-Team-Roster)
+6. [Player Dashboard Statistics](#Player-Dashboard-Statistics)
+7. [Player Career Statistics](#Player-Career-Statistics)
+
+
 ## Authors
 
 - [@aowang](https://github.com/AoWangPhilly)
