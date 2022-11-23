@@ -11,9 +11,6 @@ For this project we want to scrape statistics on all the NBA teams and players f
 - [@aowang](https://github.com/AoWangPhilly)
 - [@darakasrovi](https://github.com/darakasrovi)
 
-
-
-
 ## Acknowledgements
 
  - [NBA Advanced Stats](https://www.nba.com/stats/help/glossary)
@@ -21,28 +18,8 @@ For this project we want to scrape statistics on all the NBA teams and players f
 
 ## Installation
 
-Import Libraries
-
-```python
-pip install pandas
-pip install selenium
-pip install webdriver-manager
-import re
-import json
-import os
-from concurrent import futures
-from typing import List, Dict, Any
-
-import pandas as pd
-import numpy as np
-import requests
-from bs4 import BeautifulSoup
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
+```bash
+pip install -r requirements.txt
 ```
 
 ## Getting The NBA Teams
@@ -92,5 +69,10 @@ output = []
         output.append(get_player_info(player_id))
     return pd.concat(output).reset_index(drop=True)
  ```
- This task takes about 30-45 minutes to execute and is the biggest limitation to our project.  
+
+## Limitations
+The task for scraping player career statistics takes about 30-45 minutes to execute and is the biggest limitation to our project. Therefore, using Selenium is one of biggest limitations to our project because it requires us to open up the browser to scrape the HTML rather than sending an API request. 
+
+The NBA career stats page does utilize an API, but it requires some header information to make the request. I've experimented with the API (Request URL: https://stats.nba.com/stats/playercareerstats?LeagueID=00&PerMode=Totals&PlayerID=1630178
+) and there seems to be a call limit. I tried to gather all the player career stats using the API, but it only allowed me to make 10 requests before buffering endlessly.
  
